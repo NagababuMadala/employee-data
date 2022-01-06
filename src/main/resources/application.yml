@@ -1,0 +1,8 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: Loyalty Mtl Member Service
+  profiles:
+    active: dev-h2

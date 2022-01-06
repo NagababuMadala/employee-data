@@ -1,0 +1,603 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Employee details.",
+    "version": "1.0",
+    "title": "Swagger Employeer",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "nagababu.madala@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:8081",
+  "basePath": "/v1",
+  "tags": [
+    {
+      "name": "Employee",
+      "description": "Everything about employee",
+      "externalDocs": {
+        "description": "Find out more about employee",
+        "url": "http://localhost:8081"
+      }
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/employee": {
+      "post": {
+        "tags": [
+          "Add Employee"
+        ],
+        "summary": "Add Employee",
+        "description": "",
+        "operationId": "addEmployee",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "Content-Type Header (application/json)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Access-Control-Allow-Origin",
+            "in": "header",
+            "description": "Access-Control-Allow-Origin Header *",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Access-Control-Allow-Methods",
+            "in": "header",
+            "description": "Access-Control-Allow-Methods",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "EmployeeCreateRequest",
+            "in": "body",
+            "description": "Employee object needs to be added to the register",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EmployeeCreateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "employee successfully created.",
+            "schema": {
+              "$ref": "#/definitions/EmployeeCreateResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "401": {
+            "description": "Unauthorized, Invalid or Missing Api Key",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "403": {
+            "description": "Access Denied, Insufficient Scope privilege",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "405": {
+            "description": "Invalid input",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        },
+        "security": [
+          {
+            "employee_auth": [
+              "write:employee",
+              "read:employee"
+            ]
+          }
+        ]
+      }
+    },
+    "/employee/{employeeId}": {
+      "put": {
+        "tags": [
+          "UpdateEmployee"
+        ],
+        "summary": "Update Employee",
+        "description": "",
+        "operationId": "updateemployee",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "Content-Type Header (application/json)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "employeeId",
+            "in": "path",
+            "description": "employeeId used to retrieve data.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "EmployeeUpdateRequest",
+            "description": "Employee object that needs to be updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EmployeeUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "employee successfully updated.",
+            "schema": {
+              "$ref": "#/definitions/EmployeeUpdateResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "401": {
+            "description": "Unauthorized, Invalid or Missing Api Key",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "403": {
+            "description": "Access Denied, Insufficient Scope privilege",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "405": {
+            "description": "Invalid input",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        },
+        "security": [
+          {
+            "employee_auth": [
+              "write:employee",
+              "read:employee"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "GetEmployee"
+        ],
+        "summary": "Find Employee",
+        "description": "",
+        "operationId": "GetEmployee",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "Content-Type Header (application/json)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "employeeId",
+            "in": "path",
+            "description": "employeeId used to retrieve data.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "employee successfully updated.",
+            "schema": {
+              "$ref": "#/definitions/EmployeeGetResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "401": {
+            "description": "Unauthorized, Invalid or Missing Api Key",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "403": {
+            "description": "Access Denied, Insufficient Scope privilege",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "405": {
+            "description": "Invalid input",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "503": {
+            "description": "Service unavailable",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        },
+        "security": [
+          {
+            "employee_auth": [
+              "write:employee",
+              "read:employee"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "DeleteEmployee"
+        ],
+        "summary": "Delete Employee",
+        "description": "",
+        "operationId": "deleteemployee",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "Content-Type Header (application/json)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "employeeId",
+            "in": "path",
+            "description": "The employeeId that needs to be deleted",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Member deleted successfully",
+            "schema": {
+              "$ref": "#/definitions/EmployeeDeleteResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "401": {
+            "description": "Unauthorized, Invalid or Missing Api Key",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "403": {
+            "description": "Access Denied, Insufficient Scope privilege",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "404": {
+            "description": "Member Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "503": {
+            "description": "Service unavailable",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "employee_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:employee": "modify employee in your account",
+        "read:employee": "read your employee"
+      }
+    }
+  },
+  "definitions": {
+    "EmployeeCreateRequest": {
+      "type": "object",
+      "required": [
+        "employeeId"
+      ],
+      "properties": {
+        "employeeId": {
+          "type": "string",
+          "description": "Employee id from register."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "First Name of the employee. Required for Persist"
+        },
+        "languageCode": {
+          "type": "string",
+          "example": "EN",
+          "description": "Language code"
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Last Name of the employee. Required for Persist"
+        },
+        "emailAddress": {
+          "type": "string",
+          "description": "employee Email Address. Required for Persist"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "employee Phone Number. Required for Persist"
+        }
+      }
+    },
+    "EmployeeUpdateRequest": {
+      "type": "object",
+      "required": [
+        "employeeId"
+      ],
+      "properties": {
+        "employeeId": {
+          "type": "string",
+          "description": "Employee id from register."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "First Name of the employee. Required for Persist"
+        },
+        "languageCode": {
+          "type": "string",
+          "example": "EN",
+          "description": "Language code"
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Last Name of the employee. Required for Persist"
+        },
+        "emailAddress": {
+          "type": "string",
+          "description": "employee Email Address. Required for Persist"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "employee Phone Number. Required for Persist"
+        }
+      }
+    },
+    "EmployeeCreateResponse": {
+      "type": "object",
+      "required": [
+        "employeeId"
+      ],
+      "properties": {
+        "employeeId": {
+          "type": "string",
+          "description": "Employee id from register."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "First Name of the employee. Required for Persist"
+        },
+        "languageCode": {
+          "type": "string",
+          "example": "EN",
+          "description": "Language code"
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Last Name of the employee. Required for Persist"
+        },
+        "emailAddress": {
+          "type": "string",
+          "description": "employee Email Address. Required for Persist"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "employee Phone Number. Required for Persist"
+        }
+      }
+    },
+    "EmployeeUpdateResponse": {
+      "type": "object",
+      "required": [
+        "employeeId"
+      ],
+      "properties": {
+        "employeeId": {
+          "type": "string",
+          "description": "Employee id from register."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "First Name of the employee. Required for Persist"
+        },
+        "languageCode": {
+          "type": "string",
+          "example": "EN",
+          "description": "Language code"
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Last Name of the employee. Required for Persist"
+        },
+        "emailAddress": {
+          "type": "string",
+          "description": "employee Email Address. Required for Persist"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "employee Phone Number. Required for Persist"
+        }
+      }
+    },
+    "EmployeeGetResponse": {
+      "type": "object",
+      "required": [
+        "employeeId"
+      ],
+      "properties": {
+        "employeeId": {
+          "type": "string",
+          "description": "Employee id from register."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "First Name of the employee. Required for Persist"
+        },
+        "languageCode": {
+          "type": "string",
+          "example": "EN",
+          "description": "Language code"
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Last Name of the employee. Required for Persist"
+        },
+        "emailAddress": {
+          "type": "string",
+          "description": "employee Email Address. Required for Persist"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "employee Phone Number. Required for Persist"
+        }
+      }
+    },
+    "EmployeeDeleteResponse": {
+      "type": "object",
+      "required": [
+        "employeeId"
+      ],
+      "properties": {
+        "employeeId": {
+          "type": "string",
+          "description": "Employee id from register."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "First Name of the employee. Required for Persist"
+        },
+        "languageCode": {
+          "type": "string",
+          "example": "EN",
+          "description": "Language code"
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Last Name of the employee. Required for Persist"
+        },
+        "emailAddress": {
+          "type": "string",
+          "description": "employee Email Address. Required for Persist"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "employee Phone Number. Required for Persist"
+        }
+      }
+    },
+    "ErrorModel": {
+      "type": "object",
+      "properties": {
+        "developerMessage": {
+          "type": "string",
+          "description": "Verbose, plain language description of the problem optionally with hints about how to fix."
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "moreInfo": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Status code from error"
+        },
+        "userMessage": {
+          "type": "string",
+          "description": "Short description of what went wrong."
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
